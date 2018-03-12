@@ -2,18 +2,20 @@
 - name: Install st2
   hosts: all
   roles:
-    - mongodb
+    - name: Install mongodb
+      role: mongodb
+      vars:
+        mongodb_version: 3.2
     - rabbitmq
     - postgresql
     - st2repo
-    - st2
+    - name: Install and configure st2
+      role: st2
+      vars:
+        st2_version: 2.1.0
+        st2_revision: 16
     - st2mistral
     - nginx
     - st2web
     - nodejs
-    - st2chatops
     - st2smoketests
-    - role: bwc
-      when: bwc_license is defined and bwc_license is not none
-    - role: bwc_smoketests
-      when: bwc_license is defined and bwc_license is not none
